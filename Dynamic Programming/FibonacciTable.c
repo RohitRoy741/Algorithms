@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+int Fibonacci(int n)
+{
+    if (n <= 1)
+        return n;
+    int *t = (int *)malloc(sizeof(int) * n);
+    t[0] = 0;
+    t[1] = 1;
+    for (int i = 2; i < n + 1; i++)
+    {
+        t[i] = t[i - 1] + t[i - 2];
+    }
+    return t[n];
+}
