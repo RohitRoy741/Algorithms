@@ -1,0 +1,1 @@
+This folder will contain algorithms on graph that falls under various categories like Greedy, Dynamic, etc.
