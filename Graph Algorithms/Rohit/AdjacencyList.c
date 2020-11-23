@@ -54,14 +54,13 @@ void PrintGraph(Graph g)
         {
             printf("|%d|", curr->data);
         }
-        printf("NULL");
     }
 }
 int main()
 {
     Graph g;
     int n;
-    printf("Enter the number of edges in graph: ");
+    printf("Enter the number of vertices in graph: ");
     scanf("%d", &n);
     CreateGraph(&g, n);
     PrintGraph(g);
