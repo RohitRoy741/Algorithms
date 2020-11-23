@@ -52,7 +52,7 @@ void PrintGraph(Graph g)
         printf("\n%d->", i + 1);
         for (Node *curr = g.edges[i]; curr != NULL; curr = curr->next)
         {
-            printf("|%d|", curr->data);
+            printf("| %d |", curr->data);
         }
     }
 }

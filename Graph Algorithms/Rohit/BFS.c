@@ -139,6 +139,20 @@ void BFS(Graph *g, int source)
     }
     printf("END");
 }
+void PrintPath(Graph *g, int s, int v)
+{
+    if (v == s)
+        printf("%d->", v);
+    else if (g->parent[v - 1] == 0)
+    {
+        printf("\nThere is no path from %d to %d", s, v);
+    }
+    else
+    {
+        PrintPath(g, s, g->parent[v - 1]);
+        printf("%d->", v);
+    }
+}
 int main()
 {
     Graph g;
@@ -148,5 +162,13 @@ int main()
     CreateGraph(&g, n);
     PrintGraph(g);
     BFS(&g, 1);
+    printf("\n");
+    int source, dest;
+    printf("\nEnter source: ");
+    scanf("%d", &source);
+    printf("Enter destination: ");
+    scanf("%d", &dest);
+    PrintPath(&g, source, dest);
+    printf("DONE");
     return 0;
 }
