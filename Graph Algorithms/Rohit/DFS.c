@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX 1000
+int time = 0;
 typedef struct node
 {
     int data;
@@ -10,6 +11,10 @@ typedef struct graph
 {
     int n;
     Node *edges[MAX];
+    char color[MAX];
+    int parent[MAX];
+    int d[MAX];
+    int f[MAX];
 } Graph;
 void CreateGraph(Graph *g, int n)
 {
@@ -56,13 +61,50 @@ void PrintGraph(Graph g)
         }
     }
 }
+void DFS_VISIT(Graph *g, int u)
+{
+    printf("%d->", u);
+    time += 1;
+    g->color[u] = 'g';
+    g->d[u] = time;
+    for (Node *curr = g->edges[u]; curr != NULL; curr = curr->next)
+    {
+        if (g->color[curr->data] == 'w')
+        {
+            g->parent[curr->data] = u;
+            DFS_VISIT(g, curr->data);
+        }
+    }
+    time++;
+    g->f[u] = time;
+    g->color[u] = 'b';
+}
+void DFS(Graph *g)
+{
+    printf("\nDepth first search:\n");
+    for (int i = 0; i < g->n; i++)
+    {
+        g->color[i] = 'w';
+        g->parent[i] = -1;
+    }
+    time = 0;
+    for (int i = 0; i < g->n; i++)
+    {
+        if (g->color[i] == 'w')
+        {
+            DFS_VISIT(g, i);
+            printf("END\n");
+        }
+    }
+}
 int main()
 {
     Graph g;
     int n;
-    printf("Enter the number of vertices in graph: ");
+    printf("Enter the number of vertices of graph: ");
     scanf("%d", &n);
     CreateGraph(&g, n);
     PrintGraph(g);
+    DFS(&g);
     return 0;
 }

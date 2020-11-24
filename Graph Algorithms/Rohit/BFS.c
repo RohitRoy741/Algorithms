@@ -24,10 +24,10 @@ void CreateGraph(Graph *g, int n)
     for (int i = 0; i < n; i++)
     {
         int number_of_edges;
-        printf("Enter number of edges from vertex %d: ", i + 1);
+        printf("Enter number of edges from vertex %d: ", i);
         scanf("%d", &number_of_edges);
         g->edges[i] = NULL;
-        printf("Enter the vertices in adjacency list of %d:\n", i + 1);
+        printf("Enter the vertices in adjacency list of %d:\n", i);
         Node *curr;
         for (int j = 0; j < number_of_edges; j++)
         {
@@ -56,7 +56,7 @@ void PrintGraph(Graph g)
     printf("\nAdjacency List representation:\n");
     for (int i = 0; i < g.n; i++)
     {
-        printf("\n%d->", i + 1);
+        printf("\n%d->", i);
         for (Node *curr = g.edges[i]; curr != NULL; curr = curr->next)
         {
             printf("| %d |", curr->data);
@@ -68,13 +68,6 @@ void Enqueue(Queue *q, int element)
     Node *temp = (Node *)malloc(sizeof(Node));
     temp->data = element;
     temp->next = NULL;
-    // if (q->head == NULL)
-    // {
-    //     printf("2. %d\n", q->head->data);
-    //     q->head = temp;
-    //     q->size = 1;
-    //     return;
-    // }
     Node *curr = q->head, *prev = NULL;
     while (curr != NULL)
     {
@@ -112,9 +105,9 @@ void BFS(Graph *g, int source)
     for (int i = 0; i < g->n; i++)
     {
         g->color[i] = 'w';
-        g->parent[i] = 0;
+        g->parent[i] = -1;
     }
-    g->color[source - 1] = 'g';
+    g->color[source] = 'g';
     Queue q;
     q.head = NULL;
     q.size = 0;
@@ -122,19 +115,19 @@ void BFS(Graph *g, int source)
     while (q.size > 0)
     {
         int u = Dequeue(&q);
-        Node *curr = g->edges[u - 1];
+        Node *curr = g->edges[u];
         while (curr != NULL)
         {
             int v = curr->data;
-            if (g->color[v - 1] == 'w')
+            if (g->color[v] == 'w')
             {
                 Enqueue(&q, v);
-                g->color[v - 1] = 'g';
-                g->parent[v - 1] = u;
+                g->color[v] = 'g';
+                g->parent[v] = u;
             }
             curr = curr->next;
         }
-        g->color[u - 1] = 'b';
+        g->color[u] = 'b';
         printf("%d->", u);
     }
     printf("END");
@@ -143,13 +136,13 @@ void PrintPath(Graph *g, int s, int v)
 {
     if (v == s)
         printf("%d->", v);
-    else if (g->parent[v - 1] == 0)
+    else if (g->parent[v] == -1)
     {
         printf("\nThere is no path from %d to %d", s, v);
     }
     else
     {
-        PrintPath(g, s, g->parent[v - 1]);
+        PrintPath(g, s, g->parent[v]);
         printf("%d->", v);
     }
 }
@@ -161,7 +154,7 @@ int main()
     scanf("%d", &n);
     CreateGraph(&g, n);
     PrintGraph(g);
-    BFS(&g, 1);
+    BFS(&g, 0);
     printf("\n");
     int source, dest;
     printf("\nEnter source: ");
