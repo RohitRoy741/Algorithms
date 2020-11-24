@@ -1,5 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+/*
+Best Case of insertion sort occurs when the 
+input array is already sorted.
+In that case, while loop is executed only time,
+and therefore the time complexity is linear.
+
+
+However, if the array is reverse sorted, then while loop is
+executed for each element of A[0,...,j-1].
+This makes the time complexity quadratic in worst case.
+*/
 void InsertionSort(int A[], int size)
 {
     for (int j = 1; j < size; j++)
