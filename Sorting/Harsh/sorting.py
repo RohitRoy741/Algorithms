@@ -28,6 +28,7 @@ print(arr)
 
 #INSERTION SORT::
 
+arr=list(map(int,input().split()))
 for index in range(1,len(arr)):
         value=arr[index]
         i=index-1
@@ -38,7 +39,7 @@ for index in range(1,len(arr)):
                 i=i-1
             else:
                 break
-    return arr
+print(arr)
 
 ########################################################################
 
